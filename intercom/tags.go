@@ -1,7 +1,6 @@
 package intercom
 
 import (
-    "fmt"
     "encoding/json"
 )
 
@@ -36,10 +35,12 @@ func (c *APIClient) ListTags() ([]*Tag, error) {
         j, err := json.Marshal(&vvv)
         if err != nil {
             fmt.Println(err)
+            return nil, err
         }
         err = json.Unmarshal(j, &tag)
         if err != nil {
             fmt.Println(err)
+            return nil, err
         }
         tags = append(tags, &tag)
     }
