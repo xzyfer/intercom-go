@@ -1,8 +1,9 @@
 package intercom
 
-// import (
-//     "fmt"
-// )
+import (
+    "fmt"
+    "encoding/json"
+)
 
 // Tag represents a tag.
 //
@@ -29,15 +30,18 @@ func (c *APIClient) ListTags() ([]*Tag, error) {
 
     vv := v["tags"].([]interface{})
 
-    var tags = make([]*Tag, len(vv));
-    for i, vvv := range vv {
-        // fmt.Printf("%d - %+v\n", i, vvv)
-        // fmt.Printf("%d - %+v\n", i, vvv)
-        vvvv := vvv.(map[string]interface{})
-        // fmt.Printf("%d - %+v\n", i, vvvv)
-        // fmt.Printf("%s\n", vvvv["name"])
-        tag := Tag{vvvv["id"].(string), vvvv["name"].(string)}
-        tags[i] = &tag
+    var tags []*Tag
+    for _, vvv := range vv {
+        var tag Tag;
+        j, err := json.Marshal(&vvv)
+        if err != nil {
+            fmt.Println(err)
+        }
+        err = json.Unmarshal(j, &tag)
+        if err != nil {
+            fmt.Println(err)
+        }
+        tags = append(tags, &tag)
     }
 
     return tags, err
