@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	libraryVersion = "1.0.0-beta"
+	libraryVersion = "1.0.0"
 	userAgent      = "intercom-go/" + libraryVersion
 	defaultBaseURL = "https://api.intercom.io/"
 )
