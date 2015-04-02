@@ -1,22 +1,22 @@
 package intercom
 
 import (
-    "net/http"
+	"net/http"
 )
 
 type APIKeyAuthTransport struct {
-    Transport http.RoundTripper
-    AppID   string
-    APIKey  string
+	Transport http.RoundTripper
+	AppID     string
+	APIKey    string
 }
 
 func (t *APIKeyAuthTransport) RoundTrip(req *http.Request) (resp *http.Response, err error) {
-    transport := t.Transport
-    if transport == nil {
-        transport = http.DefaultTransport
-    }
+	transport := t.Transport
+	if transport == nil {
+		transport = http.DefaultTransport
+	}
 
-    req.SetBasicAuth(t.AppID, t.APIKey)
+	req.SetBasicAuth(t.AppID, t.APIKey)
 
-    return transport.RoundTrip(req)
+	return transport.RoundTrip(req)
 }
