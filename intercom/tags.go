@@ -34,12 +34,10 @@ func (c *APIClient) ListTags() ([]*Tag, error) {
         var tag Tag;
         j, err := json.Marshal(&vvv)
         if err != nil {
-            fmt.Println(err)
             return nil, err
         }
         err = json.Unmarshal(j, &tag)
         if err != nil {
-            fmt.Println(err)
             return nil, err
         }
         tags = append(tags, &tag)
